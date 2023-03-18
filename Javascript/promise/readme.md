@@ -26,6 +26,7 @@ console.log(ticket()); // Promise {<pending>}
 ```
 
 so u get a pending promise for evening show ticket. if u go back at evening again and pay for the ticket he will keep his promise of giving u a ticket for the show.
+
 ```js
 function watchMovie() {
   ticket(true).then(function (movie) {
@@ -36,7 +37,7 @@ function watchMovie() {
 watchMovie(); // watching avatar: way of water
 ```
 
-before jumping into more realistic example with promise lets recall the callback hell we learned during the api call.
+before jumping into more realistic example with promise lets recall the callback hell we learned in callback lecture.
 
 ```js
 const post = {
@@ -116,7 +117,7 @@ getPost(1001)
   });
 ```
 
-here both `getPost` and `getUser` returns promises. in this lines code `getPost` returns a `new promise object` . we are accessing the `then` function of this new pomise object using (.) operator. the `then` function takes a `callback` function which returning aother `new promise object` returned via `getUser` function
+not much but it is little bit convinient. here both `getPost` and `getUser` returns promises. in this lines code `getPost` returns a `new promise object` . we are accessing the `then` function of this new pomise object using (.) operator. the `then` function takes a `callback` function which returning aother `new promise object` returned via `getUser` function
 ```
 getPost(1001)
   .then(function (post) {
@@ -135,8 +136,40 @@ getPost(1001)
   });
 ```
 
+if too many returns confuses you, it can be done like this also. look at the changes we make inside `getUser` function and first `.then`
+
+```js
+function getPost(postId) {
+  return new Promise(function (resolve, reject) {
+    setTimeout(function () {
+      if (postId === post.postId) {
+        resolve(post);
+      }
+    }, 500);
+  });
+}
+
+function getUser(post) { // change here in argument
+  return new Promise(function (resolve, reject) {
+    setTimeout(() => {
+      if (post.userId === user.userId) { // change here [post.userId]
+        resolve(user);
+      }
+    }, 500);
+  });
+}
+
+getPost(1001)
+  .then(getUser) // change here
+  .then(function (user) {
+    console.log(user);
+  });
+```
+instead of passing an anonymous callback function (which returns a promise eventually) we can directly pass the `getUser` as a callback function which will later get `post` in its parameter by the `then` function.
+
 ## promise implementation
-promise is nothing but some structural implementation of callback functions. lets we want to make our own promise object. we name it `Assure`
+promise is nothing but some structural implementation of callback functions. lets say we want to make our own promise object. we name it `Assure`
+
 ```js
 function Assure(callback) {
   // we call after instead of then
@@ -180,3 +213,5 @@ output:
     "commenter": "user002"
 }
 ```
+
+its just a glimpse, real implementaion is much more complex.
