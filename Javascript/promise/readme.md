@@ -1,5 +1,6 @@
 ## promise
-imagine you went to iMax to watch newly released film  `avatar: way of water` 
+
+imagine you went to iMax to watch newly released film `avatar: way of water`
 
 ```js
 function ticket() {
@@ -15,12 +16,13 @@ watchMovie(); // watching avatar: way of water
 
 ok thats fine. you bought a ticket for morning show. that ticket returns the movie. and u watched the movie.
 some time there might be a case where no seat available for morning show and the cashier promises you that if you come back later at evening u will sure get ticket for evening show.
+
 ```js
 function ticket(paid = false) {
   return new Promise(function (resolve, reject) {
     if (paid) resolve("avatar: way of water");
   });
-} 
+}
 
 console.log(ticket()); // Promise {<pending>}
 ```
@@ -75,7 +77,9 @@ getPost(1001, function (post) {
   });
 });
 ```
+
 output :
+
 ```
 {
     "name": "lucas",
@@ -118,6 +122,7 @@ getPost(1001)
 ```
 
 not much but it is little bit convinient. here both `getPost` and `getUser` returns promises. in this lines code `getPost` returns a `new promise object` . we are accessing the `then` function of this new pomise object using (.) operator. the `then` function takes a `callback` function which returning aother `new promise object` returned via `getUser` function
+
 ```
 getPost(1001)
   .then(function (post) {
@@ -125,7 +130,8 @@ getPost(1001)
   })
 ```
 
-and the last  accessed `then` function is basically a function of latest `promise object` we have just got. 
+and the last accessed `then` function is basically a function of latest `promise object` we have just got.
+
 ```
 getPost(1001)
   .then(function (post) {
@@ -136,7 +142,7 @@ getPost(1001)
   });
 ```
 
-if too many returns confuses you, it can be done like this also. look at the changes we make inside `getUser` function and first `.then`
+instead of returning the new promise object (one that got return by `getUser`) we can directly pass the `getUser` function as callback. look at the changes we make inside `getUser` function and first `.then`
 
 ```js
 function getPost(postId) {
@@ -149,10 +155,12 @@ function getPost(postId) {
   });
 }
 
-function getUser(post) { // change here in argument
+function getUser(post) {
+  // change here in argument
   return new Promise(function (resolve, reject) {
     setTimeout(() => {
-      if (post.userId === user.userId) { // change here [post.userId]
+      if (post.userId === user.userId) {
+        // change here [post.userId]
         resolve(user);
       }
     }, 500);
@@ -165,53 +173,174 @@ getPost(1001)
     console.log(user);
   });
 ```
+
 instead of passing an anonymous callback function (which returns a promise eventually) we can directly pass the `getUser` as a callback function which will later get `post` in its parameter by the `then` function.
 
 ## promise implementation
-promise is nothing but some structural implementation of callback functions. lets say we want to make our own promise object. we name it `Assure`
+
+promise is nothing but some structural implementation of callback functions. lets say we want to make our own promise object. we can name our `constructor` function is `Assure`
+
+### step-1
+
+```js
+function Assure() {
+  this.after = function () {
+    console.log("similar to then");
+  };
+}
+
+const assure = new Assure();
+assure.after(); // similar to then
+```
+
+### step-2
+
+```js
+function Assure(data) {
+  this.after = function () {
+    console.log(data);
+  };
+}
+
+const assure = new Assure("some data");
+assure.after(); // some data
+```
+
+### step-3
+
+```js
+function Assure(data) {
+  this.after = function (cb) {
+    cb(data);
+  };
+}
+
+const assure = new Assure("data through callback");
+assure.after(function (data) {
+  console.log(data); // data through callback"
+});
+```
+
+### step-4
 
 ```js
 function Assure(callback) {
-  // we call after instead of then
+  callback(function (data) {
+    console.log(data); // callback in constructor
+  });
   this.after = function (cb) {
-    callback((data) => cb(data));
+    cb(data);
   };
 }
 
 const assure = new Assure(function (resolve) {
-  resolve("some data");
+  resolve("callback in constructor");
 });
 
-assure.after((data) => {
-  console.log(data);
+assure.after(function (data) {
+  console.log(data); // error for now
 });
 ```
 
-**testing with api like fetch**
-```js
-const comment = {
-  title: "nice dp",
-  commentId: 01,
-  commenter: "user002",
-};
+### step-5
 
-function getComments() {
-  return new Assure(function (keep) {
-    setTimeout(function () {
-      keep(comment);
-    }, 2000);
+```js
+function Assure(callback) {
+  this.after = function (cb) {
+    callback(function (data) {
+      cb(data);
+    });
+  };
+}
+
+const assure = new Assure(function (resolve) {
+  resolve("callback in constructor");
+});
+
+assure.after(function (data) {
+  console.log(data); //callback in constructor
+});
+```
+
+## step-6
+
+```js
+function Assure(callback) {
+  let obj = {};
+  this.after = function (cb) {
+    callback(function (data) {
+      obj = cb(data);
+    });
+    return obj;
+  };
+}
+
+const assure = new Assure(function (resolve) {
+  resolve("callback in constructors");
+});
+const obj = assure.after(function (data) {
+  console.log(data);
+});
+console.log(obj); // undefined
+```
+
+### step-7
+
+```js
+function Assure(callback) {
+  this.after = function (cb) {
+    let obj = {};
+    callback(function (data) {
+      obj = cb(data);
+    });
+    return obj;
+  };
+}
+
+const assure = new Assure(function (resolve) {
+  resolve("callback in constructors");
+});
+
+assure
+  .after(function () {
+    return new Assure(function (resolve) {
+      resolve("another new assure");
+    });
+  })
+  .after(function (data) {
+    console.log(data); // another new assure
+  });
+```
+
+### testing
+
+```js
+function getFirst() {
+  return new Assure(function (resolve) {
+    resolve("first api call");
   });
 }
 
-getComments().after((data) => console.log(data));
-```
-output:
-```
-{
-    "title": "nice dp",
-    "commentId": 1,
-    "commenter": "user002"
+function getSecond(data) {
+  return new Assure(function (resolve) {
+    resolve(`${data} + second api call`);
+  });
 }
 ```
 
-its just a glimpse, real implementaion is much more complex.
+```js
+getFirst()
+  .after((data) => {
+    console.log(data); // first api call
+    return getSecond(data);
+  })
+  .after((data) => console.log(data)); // first api call + second api call
+
+// or
+
+getFirst()
+  .after(getSecond)
+  .after((data) => console.log(data)); // first api call + second api call
+```
+
+to keep it less complex we just implemented resolve function
