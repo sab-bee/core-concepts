@@ -2,7 +2,7 @@
 
 ## What is an sync system?
 
-in a synchronous system all the operation are synchronized. one will be exected after another.
+in a synchronous system all the operation are synchronized. one will be exected after another. lets consider below code as data that are stored in a nosql database.
 
 ```js
 const userDb = [
@@ -63,7 +63,7 @@ const postDb = [
 ];
 ```
 
-imagine the above data are stored in any nosql database. lets write some backend code
+now lets write some backend code to find user and post using email and id.
 
 ```js
 function get_user(email) {
@@ -77,14 +77,16 @@ function get_post(id) {
 }
 ```
 
-and here is the front end code
+And this is the front end code for fetching data from backend.
 
 ```js
 const user = get_user("jonas@gmail.com");
 const post = get_post(user.posts[1]);
 
 console.log(user);
-`
+```
+
+```
 output:
 {
     "id": 1,
@@ -96,19 +98,24 @@ output:
         981630,
         186751
     ]
-}`;
+}
+```
+
+```js
 console.log(post);
-`
+```
+
+```
 output:
 {
     "userId": 1,
     "id": 981630,
     "title": "python",
     "body": "i love python"
-}`;
+}
 ```
 
-this code is clearly `synchronous`. but working with database is `asyncronous`. lets make the backend async.
+this code is clearly `synchronous`. but working with database is not `syncronous`. lets first make the backend code __Asynchronous__ 
 
 ```js
 function get_user(email) {
@@ -126,16 +133,16 @@ function get_post(id) {
 }
 ```
 
-`setTimeout` is a built in function which let us set a timer. purpose of using this function here is to replicate async functionality of backend.
+`setTimeout` is a built in __asynchronous__ function which let us set a timer. purpose of using this function here is to replicate async functionality of backend.
 
 ```js
 const user = get_user("jonas@gmail.com");
 console.log(user); // undefined */
 ```
 
-why undefined? as mentioned data fetching is not sychronous(one after another). js compiler runs the code one after another, but data fetching required some time before you get the data. here js compiler did not wait for the data to come from database.
+why undefined? as mentioned data fetching is not sychronous(one after another). js compiler runs the code one after another, but data fetching required some time before you get the data from backend. in our case js compiler did not wait for the data to come from backend.
 
-### _Fix the problem using callback_
+### __Fix the problem using callback__
 
 simple point is that, data send by the backend can't be stored in variable. a way around is to pass a callback to `get_user` function.
 
@@ -193,7 +200,7 @@ output:
 }`;
 ```
 
-### _callback hell_
+### __callback hell__
 
 suppost there are hundreds of api call that required previous value. then it will create a phenomenon known as **callback hell**
 
@@ -215,7 +222,7 @@ get_user("jonas@gmail.com", (user) => {
 
 like we can get post from user, comment from that post, the commenter, user info of commenter, also post of that commenter. this downward structure is known as **callback hell** or **pyramid of doom**. for complex application this is pain in the ass to maintain code base and understand code.
 
-### _promise ....then_
+### __promise ....then__
 
 to solve readability issue promise comes in handy.
 `promise` is a built in js object whats functionality is also built upon callbacks.
@@ -359,7 +366,7 @@ get_user("jonas@gmail.com")
 
 Though its more convenient structure some may call it a `promise hell`. Then our last method comes into place **aync-await**
 
-## _Async-await_
+## __Async-await__
 
 Remember the first example where we pretended api call as **synchronous** action and the code was at is best structure where we could store the data inside a variable.
 
