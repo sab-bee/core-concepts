@@ -1,3 +1,83 @@
+## What is a Callback Function?
+
+As I said earlier function are basically object. All the operation we just did above with object can be done with a functions as well.
+
+see the example below -
+
+```js
+function makeFood(foodName) {
+  console.log("making", foodName);
+}
+
+let makePizza = makeFood;
+
+function eatPizza(make_pizza) {
+  make_pizza("pizza");
+  console.log("will eat pizza");
+}
+
+eatPizza(makePizza);
+```
+
+```
+output:
+making pizza
+will eat pizza
+```
+
+> explanation
+
+created a function `makeFood` that takes one argument. Reassignning this function to `makePizza` variable. Now both `makeFood` and `makePizza` points to the same memory location in stack. Created another function named `eatPizza`. Here is the thing, `eatPizza` takes a function in its parameter. In this case it is `makePizza`. And `makePizza` is the **callback** function which is getting called by `eatPizza`
+
+now lets see a use case of callback -
+suppose you have ordered a pizza. for that you have a `getPizza` function which take `payment` as argument.
+
+```js
+function getPizza(paid = false) {
+  if (paid) return "12 inch pizza default decoration";
+}
+
+let pizza = getPizza(true);
+console.log(pizza); // 12 inch pizza default decoration
+```
+
+you got the pizza. but you actually did not like how they customized it with optional ingredients. so, you want the control over customization or decoration.
+
+```js
+function getPizza(paid = false, callback_customize) {
+  if (paid) return callback_customize("sauce", "cheese", "spice");
+}
+
+function myCustomize(item1, item2, item3) {
+  return `pizza with lots of ${item2} on top of ${item1} and add some ${item3}`;
+}
+
+let pizza = getPizza(true, myCustomize);
+console.log(pizza); // pizza with lots of cheese on top of sauce and add some spice
+```
+
+you have your own `customize` function that helps you to customize the pizza as you want with the optional items they provide. while ordering the pizza that's mean calling the `getPizza` function you pass the `customize` function with it, so that they can call your `customize` function back for further customization as the pizza gets ready.
+
+to summarize things, you don't know how the pizza will be made. functionality of `getPizza` is not your concern, but you have control over how it will be customized after. and here, `customize` is known as `callback` function.It can also be passed as antonymous function.
+
+```js
+let pizza = getPizza(true, function (item1, item2, item3) {
+  return `use lots of ${item1} on top of ${item2} and pack ${item3}`;
+});
+```
+
+
+```js
+button.addEventListener("onclick", function () {
+  // do something
+});
+```
+
+as the click event happens the interpreter will execute the callback function. How event is happening is not our concern but what to when the events get triggered we can define it.
+
+## Asynchronous callback
+
+imagine you are fetching some data from a data base. Fetch operation may take some time to response. Reason could be anything, internet connection or slow database. Remember JS interpreter executes code top to bottom in a synchronous manner (one after another). If fetch was a synchronous operation you won't get any data. Because it could not have waited for the response. As a result will get `undefined` every time. see the example below.
 
 ```js
 // api call
@@ -15,10 +95,11 @@ function printWeather() {
 printWeather();
 ```
 
-as `getWeather` is calling an api. and api call is an async task
-`printWeather` getting `undefined` because `getWeather` function
-did not return the value yet.
-btw we are using `setTimeOut` function to make it look like api call both api call and `setTimeout` are asynchronous task.
+as `getWeather` is trying to fetch data calling an api. And it is an async task.
+`printWeather` gets the value `undefined` because `getWeather` function
+did not return any response yet. `printWeather` for being a sync function it is getting called by interpreter before the database even sends any response.
+
+> _btw we are using `setTimeOut` function to imitate the real fetch operation_
 
 ```js
 function getWeather() {
@@ -34,9 +115,9 @@ function printWeather(data) {
 getWeather();
 ```
 
-can be fixed by calling the `printWeather` function inside the async api call but the problem is we dont want to clutter the `getWeather` function with any kind of fixed operation like `printWeather`. thats where the callback comes into place
+so, how can we get weather data then? we can put `printWeather` function inside the async `getWeather` function, it will work. But we don't want to clutter the `getWeather` function with any kind of fixed operation like `printWeather`. that's where the callback comes into place.
 
-## callback
+## fix with callback
 
 ```js
 function getWeather(callback) {
@@ -64,7 +145,7 @@ function printEmoji(data) {
 getWeather(printEmoji);
 ```
 
-`getWeather` function gets a callback. it has no concern what the callback will do with the data from the api. so, we can pass different types of function . like `printEmoji` or `printWeather` whatever we want to.
+`getWeather` function takes a callback. But It has no concern about what the callback will do with the data. so, we can pass different types of function. like `printEmoji` or `printWeather` whatever we want to.
 
 ## callback hell
 
@@ -103,7 +184,7 @@ getArticle(20, printArticle);
 
 `output: { name: 'what is callback', id: 20, writer: 'sam' }`
 
-`getArticle` function takes `id` of article to be retrived from the database as first parameter. and a callback function as second parameter. till this point everything seems fine as previous weather example. it prints the artcile as expected.
+`getArticle` function takes `id` of article to be retrieved from the database as first parameter. and a callback function as second parameter. till this point everything seems fine as previous weather example. it prints the article as expected.
 
 suppose we want to find the information of the writer from the article we have from previous api call. we can get it using the output we have got from api call.
 
@@ -242,4 +323,5 @@ getArticle(20, function (data) {
   });
 });
 ```
+
 and this one after another chainning is known as callback hell or `pyramid of the doom`. which is lot harder to maintain and debug.

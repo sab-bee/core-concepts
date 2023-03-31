@@ -1,5 +1,6 @@
-## promise
+***You have promised me you would do that, then I will do this***
 
+## promise
 imagine you went to iMax to watch newly released film `avatar: way of water`
 
 ```js
