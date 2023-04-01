@@ -88,27 +88,33 @@ const post = get_post(user.posts[1]);
 console.log(user);
 ```
 
+<details>
+  <summary>click to toggle output</summary>
+
 ```
-output:
 {
-    "id": 1,
-    "name": "jonas",
-    "email": "jonas@gmail.com",
-    "age": 20,
-    "posts": [
-        836561,
-        981630,
-        186751
-    ]
+  "id": 1,
+  "name": "jonas",
+  "email": "jonas@gmail.com",
+  "age": 20,
+  "posts": [
+      836561,
+      981630,
+      186751
+  ]
 }
 ```
+
+</details>
 
 ```js
 console.log(post);
 ```
 
+<details>
+  <summary>click to toggle output</summary>
+
 ```
-output:
 {
     "userId": 1,
     "id": 981630,
@@ -116,6 +122,8 @@ output:
     "body": "i love python"
 }
 ```
+
+</details>
 
 this code is clearly `synchronous`. but working with database is not `syncronous`. lets first make the backend code **Asynchronous**
 
@@ -172,20 +180,24 @@ get_user("jonas@gmail.com", function (user) {
 });
 ```
 
+<details>
+  <summary>click to toggle output</summary>
+
 ```
-output:
 {
-    "id": 1,
-    "name": "jonas",
-    "email": "jonas@gmail.com",
-    "age": 20,
-    "posts": [
-        836561,
-        981630,
-        186751
-    ]
+  "id": 1,
+  "name": "jonas",
+  "email": "jonas@gmail.com",
+  "age": 20,
+  "posts": [
+      836561,
+      981630,
+      186751
+  ]
 }
 ```
+
+</details>
 
 now question is if the data wich is `user` here can't be stored how can we then get post (`get_post` function required `postid`). we can chain, that mean call `get_post` inside the callback function has been passed to `get_user`
 
@@ -195,8 +207,10 @@ get_user("jonas@gmail.com", (user) => {
 });
 ```
 
+<details>
+  <summary>click to toggle output</summary>
+
 ```
-output:
 {
     "userId": 1,
     "id": 981630,
@@ -204,6 +218,8 @@ output:
     "body": "i love python"
 }
 ```
+
+</details>
 
 ### **callback hell**
 
@@ -270,8 +286,10 @@ const userPromise = get_user("jonas@gmail.com");
 userPromise.then((user) => console.log(user));
 ```
 
+<details>
+  <summary>click to toggle output</summary>
+
 ```
-output:
 {
     "id": 1,
     "name": "jonas",
@@ -285,6 +303,8 @@ output:
 }
 ```
 
+</details>
+
 lets see how chaining will work in terms of promise in order to get post.
 
 ```js
@@ -295,8 +315,10 @@ get_user("jonas@gmail.com")
   .then((post) => console.log(post));
 ```
 
+<details>
+  <summary>click to toggle output</summary>
+  
 ```
-output:
 {
     "userId": 1,
     "id": 836561,
@@ -304,6 +326,8 @@ output:
     "body": "could computing is future"
 }
 ```
+
+</details>
 
 as per arrow function we can remove braces and return keyword. now it has more readability than callback hell.
 
@@ -398,8 +422,10 @@ async function getData() {
 getData();
 ```
 
+<details>
+  <summary>click to toggle output</summary>
+  
 ```
-output:
 {
     "userId": 1,
     "id": 981630,
@@ -407,6 +433,8 @@ output:
     "body": "i love python"
 }
 ```
+
+</details>
 
 if you feel like an extra function call is annoying use IEFE
 
