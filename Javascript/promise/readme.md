@@ -1,6 +1,9 @@
-***You have promised me you would do that, then I will do this***
+<h1 align="center">Promises</h1>
+
+**_You have promised me you would do that, then I will do this_**
 
 ## promise
+
 imagine you went to iMax to watch newly released film `avatar: way of water`
 
 ```js

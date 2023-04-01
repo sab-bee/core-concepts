@@ -1,3 +1,5 @@
+<h1 align="center">Async-await</h1>
+
 **_Until and unless you give me the data I won't go to next step_**
 
 ## What is an sync system?
@@ -254,8 +256,8 @@ instead of taking callbacks this time backend function are returning promise. Li
 
 ```js
 console.log(get_user("jonas@gmail.com"));
-
 ```
+
 ```
 output:
 > Promise {<pending>}
@@ -267,6 +269,7 @@ output:
 const userPromise = get_user("jonas@gmail.com");
 userPromise.then((user) => console.log(user));
 ```
+
 ```
 output:
 {

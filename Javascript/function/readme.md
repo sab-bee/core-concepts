@@ -1,4 +1,6 @@
-# function
+<h1 align="center">Function</h1>
+
+**_Functions are spectial kinda objects_**
 
 ## _function declaration vs expression_
 
