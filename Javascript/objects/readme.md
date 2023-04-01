@@ -1,7 +1,6 @@
 <h1 align="center">Objects</h1>
 
-**_Everyting you see here are objects_**
-
+_Everyting you see here are objects_
 
 ## javascript object creation
 
@@ -261,9 +260,9 @@ person = {
     setTimeout(
       function () {
         console.log(this.name);
-      }.bind(this),
+      }.bind(this), // <-- bind
       1
-    ); // <-- bind
+    );
   },
 };
 
@@ -385,6 +384,7 @@ thanos.attack((name, power) => {
   console.log(name, power); // thanos snap
 });
 ```
+
 <img src='output1.png' width="70%" height='70%'>
 
 you can see the `attack` function is inside the `prototype` object. Its no longer bound with any of the instances. Rather its common in both instance through the prototype.
