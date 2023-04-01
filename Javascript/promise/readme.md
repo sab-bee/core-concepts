@@ -346,4 +346,4 @@ getFirst()
 
 to keep it less complex we just implemented resolve function
 
-[next topic (async-await)](https://github.com/sabbir-dcy/core-concepts/tree/main/Javascript/async-await)
+[next topic (async-await) >>](https://github.com/sabbir-dcy/core-concepts/tree/main/Javascript/async-await)
