@@ -150,3 +150,5 @@ pizza.bake() // -> bake chicken pizza
 here `pizza` variable is assigned an object literal. `bake` property which has a value of an anonymous function is known as `method`
 
 in console.log we directly refering to the object itself, which creates tight coupling between the method and the object. that can be problematic if we change the name of the object. Then we have to chage the name inside console.log also. Using `this` keyword this problem can be solved. We will know more about it in object note.
+
+[next topic (objects) >>](https://github.com/sabbir-dcy/core-concepts/tree/main/Javascript/objects)

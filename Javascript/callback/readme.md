@@ -325,3 +325,5 @@ getArticle(20, function (data) {
 ```
 
 and this one after another chainning is known as callback hell or `pyramid of the doom`. which is lot harder to maintain and debug.
+
+[next topic (promises)](https://github.com/sabbir-dcy/core-concepts/tree/main/Javascript/promise)

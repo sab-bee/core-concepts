@@ -384,3 +384,4 @@ thanos.attack((name, power) => {
 
 you can see the `attack` function is inside the `prototype` object. Its no longer bound with any of the instances. Rather its common in both instance through the prototype.
 
+[next topic (callback)](https://github.com/sabbir-dcy/core-concepts/tree/main/Javascript/callback)
