@@ -1,6 +1,6 @@
 <h1 align="center">Function</h1>
 
-_Functions are spectial kinda objects_
+_Functions are special kinda objects_
 
 ## function declaration vs expression
 
