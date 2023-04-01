@@ -1,6 +1,6 @@
 <h1 align="center">Callback</h1>
 
-**_Call me back when you are prepared_**
+_Call me back when you are prepared_
 
 ## What is a Callback Function?
 
@@ -23,13 +23,18 @@ function eatPizza(make_pizza) {
 eatPizza(makePizza);
 ```
 
+<details>
+  <summary>click to toggle output</summary>
+
 ```
 output:
 making pizza
 will eat pizza
 ```
 
-> explanation
+</details>
+
+> takeout
 
 created a function `makeFood` that takes one argument. Reassignning this function to `makePizza` variable. Now both `makeFood` and `makePizza` points to the same memory location in stack. Created another function named `eatPizza`. Here is the thing, `eatPizza` takes a function in its parameter. In this case it is `makePizza`. And `makePizza` is the **callback** function which is getting called by `eatPizza`
 
@@ -69,7 +74,6 @@ let pizza = getPizza(true, function (item1, item2, item3) {
   return `use lots of ${item1} on top of ${item2} and pack ${item3}`;
 });
 ```
-
 
 ```js
 button.addEventListener("onclick", function () {
@@ -266,6 +270,9 @@ function printWriter(data) {
 getArticle(20, printArticle);
 ```
 
+<details>
+  <summary>click to toggle output</summary>
+
 ```output:
 { name: 'what is callback', id: 20, writer: 'sam' }
 { name: 'sam',
@@ -274,6 +281,8 @@ getArticle(20, printArticle);
   designation: 'web developer'
 }
 ```
+
+</details>
 
 lets simplify the codes using anonymous callback function
 
