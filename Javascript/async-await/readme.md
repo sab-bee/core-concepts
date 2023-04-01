@@ -115,7 +115,7 @@ output:
 }
 ```
 
-this code is clearly `synchronous`. but working with database is not `syncronous`. lets first make the backend code __Asynchronous__ 
+this code is clearly `synchronous`. but working with database is not `syncronous`. lets first make the backend code **Asynchronous**
 
 ```js
 function get_user(email) {
@@ -133,7 +133,7 @@ function get_post(id) {
 }
 ```
 
-`setTimeout` is a built in __asynchronous__ function which let us set a timer. purpose of using this function here is to replicate async functionality of backend.
+`setTimeout` is a built in **asynchronous** function which let us set a timer. purpose of using this function here is to replicate async functionality of backend.
 
 ```js
 const user = get_user("jonas@gmail.com");
@@ -142,7 +142,7 @@ console.log(user); // undefined */
 
 why undefined? as mentioned data fetching is not sychronous(one after another). js compiler runs the code one after another, but data fetching required some time before you get the data from backend. in our case js compiler did not wait for the data to come from backend.
 
-### __Fix the problem using callback__
+### **Fix the problem using callback**
 
 simple point is that, data send by the backend can't be stored in variable. a way around is to pass a callback to `get_user` function.
 
@@ -168,7 +168,9 @@ each backend function takes extra argument which is a **callback** function. whe
 get_user("jonas@gmail.com", function (user) {
   console.log(user);
 });
-`
+```
+
+```
 output:
 {
     "id": 1,
@@ -180,7 +182,7 @@ output:
         981630,
         186751
     ]
-}`;
+}
 ```
 
 now question is if the data wich is `user` here can't be stored how can we then get post (`get_post` function required `postid`). we can chain, that mean call `get_post` inside the callback function has been passed to `get_user`
@@ -189,18 +191,19 @@ now question is if the data wich is `user` here can't be stored how can we then 
 get_user("jonas@gmail.com", (user) => {
   get_post(user.posts[0], (post) => console.log(post));
 });
+```
 
-`
+```
 output:
 {
     "userId": 1,
     "id": 981630,
     "title": "python",
     "body": "i love python"
-}`;
+}
 ```
 
-### __callback hell__
+### **callback hell**
 
 suppost there are hundreds of api call that required previous value. then it will create a phenomenon known as **callback hell**
 
@@ -222,7 +225,7 @@ get_user("jonas@gmail.com", (user) => {
 
 like we can get post from user, comment from that post, the commenter, user info of commenter, also post of that commenter. this downward structure is known as **callback hell** or **pyramid of doom**. for complex application this is pain in the ass to maintain code base and understand code.
 
-### __promise ....then__
+### **promise ....then**
 
 to solve readability issue promise comes in handy.
 `promise` is a built in js object whats functionality is also built upon callbacks.
@@ -251,10 +254,11 @@ instead of taking callbacks this time backend function are returning promise. Li
 
 ```js
 console.log(get_user("jonas@gmail.com"));
-`
+
+```
+```
 output:
 > Promise {<pending>}
-`;
 ```
 
 `get_user` returns a promise which is pending. That mean you did'nt do anything with the promise yet. Using `then` method call you can get the data.
@@ -262,7 +266,8 @@ output:
 ```js
 const userPromise = get_user("jonas@gmail.com");
 userPromise.then((user) => console.log(user));
-`
+```
+```
 output:
 {
     "id": 1,
@@ -274,7 +279,7 @@ output:
         981630,
         186751
     ]
-}`;
+}
 ```
 
 lets see how chaining will work in terms of promise in order to get post.
@@ -285,15 +290,16 @@ get_user("jonas@gmail.com")
     return get_post(user.posts[0]);
   })
   .then((post) => console.log(post));
+```
 
-`output:
+```
+output:
 {
     "userId": 1,
     "id": 836561,
     "title": "cloud",
     "body": "could computing is future"
 }
-`;
 ```
 
 as per arrow function we can remove braces and return keyword. now it has more readability than callback hell.
@@ -330,7 +336,8 @@ function isRejected(error) {
 promise.then(isFullfiled, isRejected);
 ```
 
-```output:
+```
+output:
 [
     1,
     2,
@@ -366,7 +373,7 @@ get_user("jonas@gmail.com")
 
 Though its more convenient structure some may call it a `promise hell`. Then our last method comes into place **aync-await**
 
-## __Async-await__
+## **Async-await**
 
 Remember the first example where we pretended api call as **synchronous** action and the code was at is best structure where we could store the data inside a variable.
 
