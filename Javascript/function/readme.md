@@ -1,8 +1,8 @@
 <h1 align="center">Function</h1>
 
-**_Functions are spectial kinda objects_**
+_Functions are spectial kinda objects_
 
-## _function declaration vs expression_
+## function declaration vs expression
 
 ```js
 function fun() {}
@@ -57,7 +57,7 @@ console.log(foo instanceof Object); // true
 
 Whatever can be done with object is also applicable for function.
 You can assign them to variables, add them to objects, pass them
-to other functions as arguments, and return them from functions. Basically, you can use a function anywhere you would use any other reference value.
+to other functions as arguments, and return them from functions. Basically, you can use a function anywhere you would use any other reference value. Lets see some operations using __objects__. Later we will do same operations using __functions__.
 
 ```js
 // assign/declaration
@@ -76,33 +76,48 @@ let fastFood = {
 };
 
 console.log(chickenPizza);
-/* 
-{
+```
+
+<details> 
+  <summary>click to see output</summary>
+
+```
+  {
     "name": "pizza",
     "price": 250,
     "slice": 8
-} 
-*/
+  }
+```
+
+</details>
+
+```js
 console.log(fastFood);
-/* 
+```
+
+<details> 
+  <summary>click to see output</summary>
+  
+```
 {
   "chickenPizza": {
-      "name": "pizza",
-      "price": 250,
-      "slice": 8
-    }
-} 
-*/
+  "name": "pizza",
+  "price": 250,
+  "slice": 8
+  }
+}
+```
+</details>
+
+now lets see the function part.
+
+```js
 
 // as argument
 function getPizza(fastFood) {
-  return fastFood; // return as value
+return fastFood; // return as value
 }
-```
 
-now lets see what we can do with functions.
-
-```js
 // declaration
 function vegPizza() {
   console.log("this is my pizza");
@@ -121,9 +136,9 @@ getPizza(myPizza)(); // back to back call
 // -> this is my pizza
 ```
 
-## _function overloading_
+## function overloading
 
-javascript does not support function overloading. You may heard the term `method overloading` in programming language like java. Where multiple function with same name can be differ based on their function signatures(parameter, type of parameter). JS does not have any function signature, a function can take any number of and any type of arugment. Thats why multiple function with same in a codebase the bottom one will be counted. Understand this with an example.
+javascript does not support function overloading. You may heard the term `method overloading` in object oriented language like java. Where multiple function with same name can be differ based on their function signatures(parameter, type of parameter). JS does not have any function signature, a function can take any number of and any type of arugment. Thats why multiple function with same name in a js, the bottom one will be counted. lets understand this with an example.
 
 ```js
 let sayMyName = new Function("console.log('billie')");
@@ -132,23 +147,26 @@ sayMyName(); // -> billie
 sayMyName = new Function("name", "console.log(name)");
 sayMyName(); // -> undefined
 ```
-here we have created a function using __Function__ constructor. That makes more sense why function is object in js. A function object includes a string which holds the actual code of the function. The code is literally just a string. Although its not recommended to create function like this. Anyway,
-if it was java it would have print __billie__ again. But here `sayMyName` get reassign with new function that takes __name__ in parameter then console logs it.
 
-## _Object method_
-A function is called `method` when it belongs to an actual object. In other work when an object has property value that actually a function, the property is considered a method.
+here we have created a function using __function constructor__. That makes more sense why function is object in js. A function object includes a string which holds the actual code of the function. The code is just a string. Although its not recommended to create function using this technique. Anyway,
+if it was java code it would have print `billie` second time also. But here `sayMyName` get reassign with a new function that takes __name__ in parameter then console logs it. As I said with same name last function will be counted. Js interpreter counted the second one and expected name in parameter which we did not provide. Thats the reason we get __undefined__ .
+
+## Object method
+
+A function is called `method` when it belongs to an actual object. In other word when an object has property value that actually a function, the property is considered a method.
 
 ```js
 let pizza = {
-  name: 'chicken pizza',
+  name: "chicken pizza",
   price: 250,
   bake: function () {
-    console.log('bake', pizza.name)
-  }
-}
+    console.log("bake", pizza.name);
+  },
+};
 
-pizza.bake() // -> bake chicken pizza
+pizza.bake(); // -> bake chicken pizza
 ```
+
 here `pizza` variable is assigned an object literal. `bake` property which has a value of an anonymous function is known as `method`
 
 in console.log we directly refering to the object itself, which creates tight coupling between the method and the object. that can be problematic if we change the name of the object. Then we have to chage the name inside console.log also. Using `this` keyword this problem can be solved. We will know more about it in object note.
