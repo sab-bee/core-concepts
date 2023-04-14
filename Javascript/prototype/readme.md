@@ -5,15 +5,14 @@ prototype holo JS er one of the most important concept. Javascript language tar 
 function fun() {}
 console.dir(fun);
 ```
-![[Pasted image 20230406224032.png]]
 
-[](../Pasted%20image%2020230406224032.png)
+![](../Pasted%20image%2020230406224032.png)
 
 As function is a special types of object, so object also has this `prototype` .
 
-__`Prototype` keno dorkar?__
+**`Prototype` keno dorkar?**
 In simple word, memory save korar jonne.
-Amra jodi java or c++ er kotha chinta kori tahole dekhte parbo ei language gula object oriented paradigm follow kore. Tai eshob language by default `inheritance` support kore. Kintu javascript er khetre `inheritance` support kore kina ask korle ans both __no__ and __yes__ . Karon, java or c++ er moto ekhane `classical` inheritance support kore na. Ekhane `prototype` use kore inheritance achieve kora jaay.
+Amra jodi java or c++ er kotha chinta kori tahole dekhte parbo ei language gula object oriented paradigm follow kore. Tai eshob language by default `inheritance` support kore. Kintu javascript er khetre `inheritance` support kore kina ask korle ans both **no** and **yes** . Karon, java or c++ er moto ekhane `classical` inheritance support kore na. Ekhane `prototype` use kore inheritance achieve kora jaay.
 
 ```java
 class Veyron {
@@ -38,9 +37,10 @@ class Main {
 }
 ```
 
-uporer Java code er example ta jodi dekhi.  Java object oriented language. Tar mane eta by default inheritance support kore. Kheyal kori, `Veyron` er **engine** ar **racingMode** functionality `Chiron` inherit kore. Tai `chiron` e egula alada bhabe implement korar dorkar hoy na. 
+uporer Java code er example ta jodi dekhi. Java object oriented language. Tar mane eta by default inheritance support kore. Kheyal kori, `Veyron` er **engine** ar **racingMode** functionality `Chiron` inherit kore. Tai `chiron` e egula alada bhabe implement korar dorkar hoy na.
 
 erokom similar example javascript e kibhabe achieve kora jaay prototype use kore sheta dekhar aage amra dekhbo prototype kivabe ashlo.
+
 ```js
 function Food(name, cost) {
   let food = {
@@ -56,15 +56,17 @@ let pizza = Food("pepperoni", 15);
 console.dir(pizza);
 ```
 
-![[Pasted image 20230407032057.png]]
+![](../Pasted%20image%2020230407032057.png)
+
 `Food` function create korlam jaa ekta object return kore. Jotbor e function ta call kora hobe totobar e notun notun object create hobe. Ekhon jodi `momos` naam e arekta object create kori.
+
 ```js
 let momos = Food("chicken momo", 20);
 console.dir(momos);
 ```
 
 ![[Pasted image 20230407032351.png]]
-ekhane `pizza` and `momos` duita object er jonnei `cost` and `name` er  alada alada copy create hoyeche memory te sheta amra dekhtei parchi. Eta make sense kore karon different food er name and cost alada hotei pare. But jodi duita object e emon ekta method ke hold kore jar purpose same . i.e `serve` 
+ekhane `pizza` and `momos` duita object er jonnei `cost` and `name` er alada alada copy create hoyeche memory te sheta amra dekhtei parchi. Eta make sense kore karon different food er name and cost alada hotei pare. But jodi duita object e emon ekta method ke hold kore jar purpose same . i.e `serve`
 
 ```js
 function Food(name, cost) {
@@ -86,8 +88,10 @@ console.dir(pizza);
 console.dir(momos);
 ```
 
-![[Pasted image 20230407032743.png]]
+![](../Pasted%20image%2020230407032743.png)
+
 duita object e same `serve` function er alada alada copy memory te create kore. Eta mainly redundant . As purpose same so alada alada copy create kore space nosto korar kono mane hoy na. Lets fix it.
+
 ```js
 function Food(name, cost) {
   let food = {
@@ -112,26 +116,31 @@ console.dir(pizza);
 console.dir(momos);
 ```
 
-ekhane `serve` function alada ekta object er moddhe rakha hoyeche. And `Food` constructor er `food` object er property te refer kora hoyeche.  So `pizza` ar `momos` instance jokhon create kora hoy tokhon `serve` er alada alada copy create hobe na rather ektai copy thakbe jetake both `pizza` and `momos` er `food` property refer korte pare.
+ekhane `serve` function alada ekta object er moddhe rakha hoyeche. And `Food` constructor er `food` object er property te refer kora hoyeche. So `pizza` ar `momos` instance jokhon create kora hoy tokhon `serve` er alada alada copy create hobe na rather ektai copy thakbe jetake both `pizza` and `momos` er `food` property refer korte pare.
+
 <h3 align="center">Object.create</h3>
-__Object.create__ kono ekta object er prototype use kore new ekta object create kore return kore. For example - 
+
+__Object.create__ kono ekta object er prototype use kore new ekta object create kore return kore. For example -
 
 ```js
 let smoothie = {
-  name: 'fruit smoothie',
+  name: "fruit smoothie",
   price: 20,
-}
+};
 
-let shake = Object.create(smoothie)
-console.log(shake)
+let shake = Object.create(smoothie);
+console.log(shake);
 console.log(shake.name);
 ```
-![[Pasted image 20230413181546.png]]
+
+![](../Pasted%20image%2020230413181546.png)
+
 console.log kore dekha gelo ekta empty object. Othocho `shake.name` correct output dicche. Eta tahole kibhabe hocche. Ektu aagei bollam eta object er prototype use kore.
 ![[Pasted image 20230413181638.png]]
 object empty holeo er prototype er moddhe properties gula thie e ache.
 
 Ekhon ekhane jodi server er moto aro kichu method thakto tahole amra obossjoi chai na ebhabe individually `method` gulo property hishebe assign korte. Er jonne amra **Object.create** use korbo.
+
 ```js
 function Food(name, cost) {
   let food = Object.create(method);
@@ -154,7 +163,7 @@ console.dir(pizza);
 console.dir(momos);
 ```
 
-![[Pasted image 20230412181440.png]]
+![](../Pasted%20image%2020230412181440.png)
 
 Notice that `server` method ta ekhon ar object er part na, eta ekhon `prototyper` er moddhe chole geche. Ei way te joto khushi toto method create kora jabe ja prototype er moddhe thakbe.
 
@@ -216,7 +225,7 @@ for (let i = 0; i < list.len; i++) {
 console.dir(list);
 ```
 
-![[Pasted image 20230406222832.png]]
+![](../Pasted%20image%2020230406222832.png)
 
 notice `len` is little bit off color. Because we have defined this property as non-enumerable. That mean if we enumerate through `list` object then we wont get `len`
 
@@ -263,7 +272,7 @@ pagani.stop(); // huayra push break
 console.dir(pagani);
 ```
 
-![[Pasted image 20230406223013.png]]
+![](../Pasted%20image%2020230406223013.png)
 
 now lets take a look how we can convert this constructor function to es6 classes.
 
@@ -289,4 +298,4 @@ bugatti.start(); // veron burning fuel
 console.dir(bugatti);
 ```
 
-![[Pasted image 20230406223101.png]]
+![](../Pasted%20image%2020230406223101.png)
