@@ -65,7 +65,8 @@ let momos = Food("chicken momo", 20);
 console.dir(momos);
 ```
 
-![[Pasted image 20230407032351.png]]
+![](../Pasted%20image%2020230407032351.png)
+
 ekhane `pizza` and `momos` duita object er jonnei `cost` and `name` er alada alada copy create hoyeche memory te sheta amra dekhtei parchi. Eta make sense kore karon different food er name and cost alada hotei pare. But jodi duita object e emon ekta method ke hold kore jar purpose same . i.e `serve`
 
 ```js
@@ -120,7 +121,7 @@ ekhane `serve` function alada ekta object er moddhe rakha hoyeche. And `Food` co
 
 <h3 align="center">Object.create</h3>
 
-__Object.create__ kono ekta object er prototype use kore new ekta object create kore return kore. For example -
+**Object.create** kono ekta object er prototype use kore new ekta object create kore return kore. For example -
 
 ```js
 let smoothie = {
@@ -136,7 +137,9 @@ console.log(shake.name);
 ![](../Pasted%20image%2020230413181546.png)
 
 console.log kore dekha gelo ekta empty object. Othocho `shake.name` correct output dicche. Eta tahole kibhabe hocche. Ektu aagei bollam eta object er prototype use kore.
-![[Pasted image 20230413181638.png]]
+
+![](../Pasted%20image%2020230413181638.png)
+
 object empty holeo er prototype er moddhe properties gula thie e ache.
 
 Ekhon ekhane jodi server er moto aro kichu method thakto tahole amra obossjoi chai na ebhabe individually `method` gulo property hishebe assign korte. Er jonne amra **Object.create** use korbo.
@@ -169,38 +172,40 @@ Notice that `server` method ta ekhon ar object er part na, eta ekhon `prototyper
 
 object.create giving blank object but can access properties. It inherits from parent object
 
-new keyword
+<h3 align='center'>new and this keyword</h3>
 
 ```js
-function Person(name, age) {
-  // let this = Object.create(Person.prototype)
-
+function Food(name, cost) {
   this.name = name;
-  this.age = age;
-
-  // return this
+  this.cost = cost;
 }
 
-Person.prototype = {
-  code() {
-    console.log("coding");
-  },
-  debug() {
-    console.log("debugging");
+Food.prototype = {
+  serve() {
+    console.log(this.name, "is being served");
   },
 };
 
-let jonas = new Person("jonas", 30);
+let pizza = new Food("pepperoni", 15);
+let momos = new Food("chicken momo", 20);
 
-jonas.code();
+console.dir(pizza);
+console.dir(momos);
 ```
 
-We have already stated that everything is object in js. In javascript `array` is also object. Lets try to understand this how does it work.
+![](../Pasted%20image%2020230414174921.png)
+
+this emon ekta object ja JS nije nije create kore jokhon e amra `new` use kore kono object instance assign kori. And `Food` function nije nijei `this` ke return kore. Previous example amra jemon ta korechilam alada ekta `food` object create kore (using Object.create) return korechilam.
+
+Amra already jani je JS e shob kicuhi object. Ekohon dekha jaak `array` te kibhabe object er implementation hoye thake.
 
 ```js
 function List() {
   this.len = 0;
   Object.defineProperty(this, "len", {
+    enumerable: false,
+  });
+  Object.defineProperty(List.prototype, "push", {
     enumerable: false,
   });
 }
@@ -219,15 +224,23 @@ list.push("ferrari");
 list.push("mclaren");
 
 for (let i = 0; i < list.len; i++) {
-  console.log(list[i]); // mercedes, ferrari, mclaren
+  console.log(list[i]);
 }
 
 console.dir(list);
 ```
 
-![](../Pasted%20image%2020230406222832.png)
+```
+output:
 
-notice `len` is little bit off color. Because we have defined this property as non-enumerable. That mean if we enumerate through `list` object then we wont get `len`
+mercedes
+ferrari
+mclaren
+```
+
+![](../Pasted%20image%2020230414180324.png)
+
+notice korle dekhbo `len` ar `push` little bit light color hoye ache. Er karon amra ei property gula ke **enumerable false** defined korechi. Jodi `list` ke **foor in** loop diye enumerate kori tahole dekho ei duita property print hocche na, only car er `key` gula print hocche. Ei key guloi mainly array er _index_ bujhay.
 
 ```js
 for (let prop in list) {
@@ -239,12 +252,13 @@ for (let prop in list) {
 0
 1
 2
-push
 ```
 
-## Es6 classes
+amra just ekta `push` method dekhlam. JS er je built in `Array` ache er prototype er moddhe aro onek `method` ache. Jemon `map`, `filter`, `find`, `reduce` ,`findIndex`, `forEach`, `sort`, `indexOf`, `shift` etc.
 
-JavaScript introduced class in ES6(2015). Under the hood it uses prototype. Its just a syntax that mimic other object oriented language.
+<h3 align='center'>Es6 classes</h3>
+
+JavaScript e year 2015 e ES6 class introduce kora hoy. Ja shudhui ekta syntax matro ja other object oriented er syntax ke mimic kore. Under the hood eta `prototype` er mechanism use use kore.
 
 lets replicate one of prototype example with classes.
 
