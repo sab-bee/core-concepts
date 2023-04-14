@@ -361,7 +361,7 @@ both of the object has same `attack` function which takes a callback. we can see
 Hero {name: 'Thor', power: 'Thunder', attack: ƒ}
 ```
 
-so its repeatative. we can take out this common property function out of the object.
+so its repetitive. we can take out this common property function out of the object.
 
 ```js
 function Hero(name, power) {
@@ -383,10 +383,11 @@ thor.attack((name, power) => {
 thanos.attack((name, power) => {
   console.log(name, power); // thanos snap
 });
+
+console.log(thor)
 ```
 
-<img src='output1.png' width="70%" height='70%'>
-
+![[Pasted image 20230414122516.png]]
 you can see the `attack` function is inside the `prototype` object. Its no longer bound with any of the instances. Rather its common in both instance through the prototype.
 
 [next topic (callback) >>](https://github.com/sabbir-dcy/core-concepts/tree/main/Javascript/callback)
