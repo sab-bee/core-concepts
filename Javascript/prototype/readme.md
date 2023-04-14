@@ -111,6 +111,7 @@ console.dir(momos);
 ekhane `serve` function alada ekta object er moddhe rakha hoyeche. And `Food` constructor er `food` object er property te refer kora hoyeche.  So `pizza` ar `momos` instance jokhon create kora hoy tokhon `serve` er alada alada copy create hobe na rather ektai copy thakbe jetake both `pizza` and `momos` er `food` property refer korte pare.
 <h3 align="center">Object.create</h3>
 __Object.create__ kono ekta object er prototype use kore new ekta object create kore return kore. For example - 
+
 ```js
 let smoothie = {
   name: 'fruit smoothie',
