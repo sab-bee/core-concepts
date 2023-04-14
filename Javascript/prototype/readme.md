@@ -1,10 +1,14 @@
 <h1 align="center">Prototype</h1>
 prototype holo JS er one of the most important concept. Javascript language tar ashol moja nite hole prototype er concept bujhte hobe. JS e amra joto function create kori each function er ekta built in object thake jeta holo `prototype`. Lets check is it true or not.
+
 ```js
 function fun() {}
 console.dir(fun);
 ```
 ![[Pasted image 20230406224032.png]]
+
+[](../Pasted%20image%2020230406224032.png)
+
 As function is a special types of object, so object also has this `prototype` .
 
 __`Prototype` keno dorkar?__
@@ -155,60 +159,6 @@ console.dir(momos);
 Notice that `server` method ta ekhon ar object er part na, eta ekhon `prototyper` er moddhe chole geche. Ei way te joto khushi toto method create kora jabe ja prototype er moddhe thakbe.
 
 object.create giving blank object but can access properties. It inherits from parent object
-
-```js
-let personMethods = {
-  code: function () {
-    console.log("person is coding");
-  },
-  debug: function () {
-    console.log("person is debugging");
-  },
-};
-
-function Person(name, age) {
-  let person = Object.create(personMethods);
-
-  person.name = name;
-  person.age = age;
-
-  return person;
-}
-
-const jonas = Person("jonas", 30);
-const jack = Person("jack", 28);
-
-console.dir(jonas);
-jonas.code();
-```
-
-a better way is to use prototype. Prototype is a property of any function that points to an object.
-
-```js
-function test() {}
-console.dir(test);
-```
-
-```js
-function Person(name, age) {
-  let person = Object.create(Person.prototype);
-  (person.name = name), (person.age = age);
-
-  return person;
-}
-
-Person.prototype = {
-  code() {
-    console.log("coding");
-  },
-  debug() {
-    console.log("debugging");
-  },
-};
-
-let jonas = Person("jonas", 30);
-jonas.code();
-```
 
 new keyword
 
