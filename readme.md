@@ -1,4 +1,4 @@
-# Javascript
+<h1 align="center">Javascript</h1>
 
 | #No |                                            Topic                                            |
 | :-- | :-----------------------------------------------------------------------------------------: |
@@ -7,6 +7,6 @@
 | 03  |    [callback](https://github.com/sabbir-dcy/core-concepts/tree/main/Javascript/callback)    |
 | 04  |     [promise](https://github.com/sabbir-dcy/core-concepts/tree/main/Javascript/promise)     |
 | 05  | [async-await](https://github.com/sabbir-dcy/core-concepts/tree/main/Javascript/async-await) |
-| 06  |                                          [else]()                                           |
+| 06  |   [prototype](https://github.com/sabbir-dcy/core-concepts/tree/main/Javascript/prototype)   |
 
-# Node js
+<h1 align="center">Node JS</h1>

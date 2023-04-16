@@ -445,3 +445,5 @@ if you feel like an extra function call is annoying use IEFE
   console.log(post);
 })();
 ```
+
+[next topic (prototype) >>](https://github.com/sabbir-dcy/core-concepts/tree/main/Javascript/prototype)
