@@ -263,53 +263,53 @@ JavaScript e year 2015 e ES6 class introduce kora hoy. Ja shudhui ekta syntax ma
 lets replicate one of prototype example with classes.
 
 ```js
-function Car(brand, model) {
-  this.brand = brand;
-  this.model = model;
+function Food(name, cost) {
+  this.name = name;
+  this.cost = cost;
 }
 
-Car.prototype = {
-  start() {
-    console.log(`${this.model} burning fuel`);
+Food.prototype = {
+  pay() {
+    console.log(`${this.name} cost ${this.cost}$`)
   },
-  stop() {
-    console.log(`${this.model} push break`);
-  },
-};
+  eat() {
+    console.log(`eating ${this.name}`)
+  }
+}
 
-let meredes = new Car("mercedes", "benz S");
-let pagani = new Car("pagani", "huayra");
+let pizza = new Food('pepperoni pizza', 10)
+let burger = new Food('veg burger', 5)
 
-meredes.start(); // benz S burning fuel
-pagani.stop(); // huayra push break
+pizza.pay() // pepperoni pizza cost 10$
+burger.eat() // eating veg burger
 
-console.dir(pagani);
+console.dir(pizza)
 ```
 
-![](../Pasted%20image%2020230406223013.png)
+![](../Pasted%20image%2020230416144344.png)
 
 now lets take a look how we can convert this constructor function to es6 classes.
 
 ```js
-class Car {
-  constructor(brand, model) {
-    this.brand = brand;
-    this.model = model;
+class Food {
+  constructor(name, cost) {
+    this.name = name;
+    this.cost = cost;
   }
-
-  start() {
-    console.log(`${this.model} burning fuel`);
+  pay() {
+    console.log(`${this.name} cost ${this.cost}$`);
   }
-
-  stop() {
-    console.log(`${this.model} push break`);
+  eat() {
+    console.log(`eating ${this.name}`);
   }
 }
 
-let bugatti = new Car("bugatti", "veron");
+let pizza = new Food("pepperoni pizza", 10);
 
-bugatti.start(); // veron burning fuel
-console.dir(bugatti);
+pizza.pay(); // pepperoni pizza cost 10$
+console.dir(pizza);
 ```
 
-![](../Pasted%20image%2020230406223101.png)
+![](../Pasted%20image%2020230416144727.png)
+
+[next topic (later) >>](https://google.com)
