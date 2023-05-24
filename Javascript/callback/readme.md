@@ -81,7 +81,7 @@ button.addEventListener("onclick", function () {
 });
 ```
 
-as the click event happens the interpreter will execute the callback function. How event is happening is not our concern but what to when the events get triggered we can define it.
+as the click event happens the interpreter will execute the callback function. How event is happening is not our concern but what to do when the event get triggered we can define it.
 
 ## Asynchronous callback
 
